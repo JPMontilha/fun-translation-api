@@ -1,53 +1,46 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+  min-height: 100vh;
 }
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 1rem;
+  position: relative;
+}
+
+.header-left,
+.header-center,
+.header-right {
+  flex: 1;
+}
+
+.header-center {
+  text-align: center;
+}
+
+.header-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.App-main {
+  background-color: #282c34;
+  min-height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.App-header h2 {
+  margin: 0;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.custom-toast {
-  background-color: #f0f8ff; /* Fundo suave */
-  color: #333; /* Cor do texto escura */
-  opacity: 1;
-  transition: opacity 0.8s ease-out; /* Transição para sumir */
-}
-
-.toast-text {
-  color: #333;
-}
-
-/* .custom-toast.hide {
-  opacity: 0; /* Para a animação de sumir 
-} */

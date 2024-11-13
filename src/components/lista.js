@@ -1,14 +1,23 @@
-import React, { useState, useCallback } from 'react';
-import { traduzirParaYoda, traduzirParaPirata, traduzirParaShakespeare, traduzirParaMinion } from '../api/funTranslateAPI'; // Importando as funções de tradução
+import React, { useState, useCallback, useEffect } from 'react';
+import {
+  traduzirParaYoda,
+  traduzirParaPirata,
+  traduzirParaShakespeare,
+  traduzirParaMinion
+} from '../api/funTranslateAPI';
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 
-const Lista = () => {
+const Lista = ({ tipoTraducaoInicial }) => {
   const [textoOriginal, setTextoOriginal] = useState('');
   const [textoTraduzido, setTextoTraduzido] = useState('');
   const [loading, setLoading] = useState(false);
-  const [tipoTraducao, setTipoTraducao] = useState('yoda');
-  const [showToast, setShowToast] = useState(false); // Estado para controlar a exibição do Toast
+  const [tipoTraducao, setTipoTraducao] = useState(tipoTraducaoInicial);
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    setTipoTraducao(tipoTraducaoInicial);
+  }, [tipoTraducaoInicial]);
 
   const traduzir = useCallback(async () => {
     if (textoOriginal.trim() === '') return;
@@ -33,7 +42,7 @@ const Lista = () => {
           break;
       }
       setTextoTraduzido(traducao);
-      setShowToast(true); // Exibe o Toast após a tradução
+      setShowToast(true);
     } catch (error) {
       console.error('Erro ao traduzir:', error);
     }
@@ -42,7 +51,6 @@ const Lista = () => {
 
   return (
     <div>
-      <h2>Tradutor FunTranslations</h2>
       <div className="mb-3">
         <textarea
           className="form-control"
@@ -73,7 +81,6 @@ const Lista = () => {
         {loading ? 'Traduzindo...' : 'Traduzir'}
       </Button>
 
-      {/* Toast para exibir o texto traduzido */}
       <Toast
         show={showToast}
         onClose={() => setShowToast(false)}
