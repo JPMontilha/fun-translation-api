@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { traduzirParaYoda } from '../api/funTranslateAPI'; // Importando as funções de tradução
+import { traduzirParaYoda, traduzirParaPirata, traduzirParaShakespeare, traduzirParaMinion } from '../api/funTranslateAPI'; // Importando as funções de tradução
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
 
@@ -19,6 +19,15 @@ const Lista = () => {
       switch (tipoTraducao) {
         case 'yoda':
           traducao = await traduzirParaYoda(textoOriginal);
+          break;
+        case 'shakespeare':
+          traducao = await traduzirParaShakespeare(textoOriginal);
+          break;
+        case 'pirata':
+          traducao = await traduzirParaPirata(textoOriginal);
+          break;
+        case 'minion':
+          traducao = await traduzirParaMinion(textoOriginal);
           break;
         default:
           break;
@@ -50,6 +59,9 @@ const Lista = () => {
           onChange={(e) => setTipoTraducao(e.target.value)}
         >
           <option value="yoda">Yoda</option>
+          <option value="shakespeare">Shakespeare</option>
+          <option value="pirata">Pirata</option>
+          <option value="minion">Minion</option>
         </select>
       </div>
       <Button
@@ -72,7 +84,7 @@ const Lista = () => {
         <Toast.Header>
           <strong className="me-auto">Tradução Completa</strong>
         </Toast.Header>
-        <Toast.Body>{textoTraduzido}</Toast.Body>
+        <Toast.Body className='toast-text'>{textoTraduzido}</Toast.Body>
       </Toast>
     </div>
   );

@@ -44,6 +44,10 @@
   transition: opacity 0.8s ease-out; /* Transição para sumir */
 }
 
-.custom-toast.hide {
-  opacity: 0; /* Para a animação de sumir */
+.toast-text {
+  color: #333;
 }
+
+/* .custom-toast.hide {
+  opacity: 0; /* Para a animação de sumir 
+} */
