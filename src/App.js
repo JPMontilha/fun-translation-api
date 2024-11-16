@@ -29,7 +29,11 @@ function App() {
 
         <div className="header-right">
           {!showCards && (
-            <CloseButton onClick={handleClose} className="close-button-custom" aria-label="Close" />
+            <CloseButton 
+            onClick={handleClose} 
+            className="close-button-custom btn-close-white" 
+            aria-label="Close" 
+          />
           )}
         </div>
 
