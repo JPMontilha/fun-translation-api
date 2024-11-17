@@ -61,7 +61,6 @@ const Lista = ({ tipoTraducaoInicial }) => {
       }
     } catch (error) {
       console.error('Erro ao traduzir:', error);
-      // Você pode adicionar um estado para mostrar mensagem de erro ao usuário
     } finally {
       setLoading(false);
     }
