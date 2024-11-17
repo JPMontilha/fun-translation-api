@@ -7,7 +7,8 @@ const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
     { id: 'yoda', name: 'Yoda' },
     { id: 'shakespeare', name: 'Shakespeare' },
     { id: 'pirata', name: 'Pirata' },
-    { id: 'minion', name: 'Minion' }
+    { id: 'minion', name: 'Minion' },
+    { id: 'elfico', name: 'Élfico' }
   ];
 
   return (

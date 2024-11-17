@@ -57,3 +57,16 @@ export const traduzirParaMinion = async (texto) => {
     throw error;
   }
 };
+
+export const traduzirParaElfico = async (texto) => {
+  try {
+    const response = await apiConnection.req(
+      'get', 
+      `sindarin.json?text=${encodeURIComponent(texto)}`
+    );
+    return response.contents.translated; // Retorna a tradução
+  } catch (error) {
+    console.error("Erro ao traduzir para Elfico:", error);
+    throw error;
+  }
+};

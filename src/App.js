@@ -67,7 +67,8 @@ function App() {
                 { src: 'https://media.tenor.com/N1f-WnXPK8oAAAAM/yoda-yoda-slap.gif', title: 'Yoda', text: 'Traduza para o estilo Yoda.', option: 'yoda' },
                 { src: 'https://i.ytimg.com/vi/u0AvQt7wuFA/maxresdefault.jpg', title: 'Shakespeare', text: 'Traduza para o estilo Shakespeare.', option: 'shakespeare' },
                 { src: 'https://assetsio.gnwcdn.com/1_Lfp9i4K.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp', title: 'Pirata', text: 'Traduza para o estilo Pirata.', option: 'pirata' },
-                { src: 'https://media.tenor.com/l0muoY71-zQAAAAC/minion-but.gif', title: 'Minion', text: 'Traduza para o estilo Minion.', option: 'minion' }
+                { src: 'https://media.tenor.com/l0muoY71-zQAAAAC/minion-but.gif', title: 'Minion', text: 'Traduza para o estilo Minion.', option: 'minion' },
+                { src: 'https://i.makeagif.com/media/6-11-2023/ibgwmI.gif', title: 'Élfico', text: 'Traduza para o estilo Élfico.', option: 'elfico' }
               ].map((card, index) => (
                 <Col key={index} md={4} className="d-flex justify-content-center mb-4">
                   <CardExample

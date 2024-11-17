@@ -3,7 +3,8 @@ import {
   traduzirParaYoda,
   traduzirParaPirata,
   traduzirParaShakespeare,
-  traduzirParaMinion
+  traduzirParaMinion,
+  traduzirParaElfico
 } from '../api/funTranslateAPI';
 import Button from 'react-bootstrap/Button';
 import Toast from 'react-bootstrap/Toast';
@@ -37,6 +38,10 @@ const Lista = ({ tipoTraducaoInicial }) => {
     minion: {
       src: 'https://media.tenor.com/l0muoY71-zQAAAAC/minion-but.gif',
       title: 'Minion'
+    },
+    elfico: {
+      src: 'https://i.makeagif.com/media/6-11-2023/ibgwmI.gif',
+      title: 'Élfico'
     }
   };
 
@@ -50,7 +55,8 @@ const Lista = ({ tipoTraducaoInicial }) => {
         yoda: traduzirParaYoda,
         shakespeare: traduzirParaShakespeare,
         pirata: traduzirParaPirata,
-        minion: traduzirParaMinion
+        minion: traduzirParaMinion,
+        elfico: traduzirParaElfico
       };
 
       const tradutorSelecionado = tradutores[tipoTraducao];
@@ -87,7 +93,7 @@ const Lista = ({ tipoTraducaoInicial }) => {
           className="textarea form-control"
           value={textoOriginal}
           onChange={(e) => setTextoOriginal(e.target.value)}
-          placeholder="Digite o texto para traduzir"
+          placeholder="Digite o texto em ingês para traduzir"
         />
       </div>
 
