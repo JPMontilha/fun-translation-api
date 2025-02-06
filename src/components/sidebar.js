@@ -1,6 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { List, House, X } from 'react-bootstrap-icons';
+import {AuthButtons} from './formulario'
 
 const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
   const translations = [
@@ -32,6 +33,8 @@ const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
             <House size={20} className="me-2" />
             Home
           </Nav.Link>
+
+          <AuthButtons />
 
           <hr className="sidebar-divider" />
           

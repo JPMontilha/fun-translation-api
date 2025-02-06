@@ -240,3 +240,23 @@ img:hover {
   }
 }
 
+.nav-container {
+  width: 100%; /* Garante que o contêiner ocupe toda a largura disponível */
+}
+
+.custom-offcanvas {
+  height: 50vh !important; /* Define a altura para 50% da altura da viewport */
+}
+
+.custom-button {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  background-color: #007bff; /* Cor do botão primário */
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.custom-button:hover {
+  background-color: #0056b3; /* Cor do botão primário ao passar o mouse */
+}
