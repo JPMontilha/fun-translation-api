@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
-import { List, House, X } from 'react-bootstrap-icons';
-import {AuthButtons} from './formulario'
+import { List, House, X, Chat } from 'react-bootstrap-icons'; // Adicione o ícone de chat
+import { AuthButtons } from './formulario';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
   const translations = [
@@ -49,6 +49,15 @@ const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
               {translation.name}
             </Nav.Link>
           ))}
+
+          {/* Botão de Comentários */}
+          <Nav.Link
+            className="sidebar-link d-flex align-items-center"
+            onClick={() => onNavigate('comments')}
+          >
+            <Chat size={20} className="me-2" />
+            Comentários
+          </Nav.Link>
         </Nav>
       </div>
     </>

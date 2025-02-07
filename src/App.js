@@ -5,29 +5,39 @@ import CardExample from './components/cards';
 import Sidebar from './components/sidebar';
 import { TextControlsExample } from './components/comentario';
 import { CardGroup, Row, Col, CloseButton } from 'react-bootstrap';
+import CommentSystem from './components/listaComentario'; // Importação correta
 
 function App() {
   const [showCards, setShowCards] = useState(true);
   const [tipoTraducao, setTipoTraducao] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [showComments, setShowComments] = useState(false); // Novo estado para controlar a tela de comentários
 
   const handleCardSelect = (option) => {
     setTipoTraducao(option);
     setShowCards(false);
+    setShowComments(false); // Certifique-se de que a tela de comentários não está visível
   };
 
   const handleClose = () => {
     setShowCards(true);
     setTipoTraducao(null);
+    setShowComments(false); // Certifique-se de que a tela de comentários não está visível
   };
 
   const handleNavigate = (destination) => {
     if (destination === 'home') {
       setShowCards(true);
       setTipoTraducao(null);
+      setShowComments(false); // Certifique-se de que a tela de comentários não está visível
+    } else if (destination === 'comments') {
+      setShowCards(false);
+      setTipoTraducao(null);
+      setShowComments(true); // Mostra a tela de comentários
     } else {
       setShowCards(false);
       setTipoTraducao(destination);
+      setShowComments(false); // Certifique-se de que a tela de comentários não está visível
     }
     setIsSidebarOpen(false);
   };
@@ -49,7 +59,7 @@ function App() {
         </div>
 
         <div className="header-right">
-          {!showCards && (
+          {(!showCards || showComments) && (
             <CloseButton
               onClick={handleClose}
               className="close-button-custom btn-close-white"
@@ -87,6 +97,8 @@ function App() {
             {/* Renderiza o TextControlsExample apenas na página inicial */}
             <TextControlsExample />
           </>
+        ) : showComments ? (
+          <CommentSystem /> // Renderiza a tela de comentários
         ) : (
           <Lista tipoTraducaoInicial={tipoTraducao} />
         )}
