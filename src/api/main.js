@@ -1,3 +1,3 @@
-import { fetchTranslation } from './funTranslateAPI';
+import { fetchTranslation } from './funTranslateAPI.js';
 
 export { fetchTranslation };

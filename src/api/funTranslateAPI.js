@@ -1,4 +1,4 @@
-import APIConnection from './connection'; // Importa a classe de conexão
+import APIConnection from './connection.js'; // Importa a classe de conexão
 
 const apiConnection = new APIConnection(); // Instância de APIConnection
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Nav } from 'react-bootstrap';
 import { List, House, X, Chat } from 'react-bootstrap-icons'; // Adicione o ícone de chat
-import { AuthButtons } from './formulario';
+import { AuthButtons } from './formulario.js';
 
 const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
   const translations = [

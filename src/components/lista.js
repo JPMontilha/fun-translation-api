@@ -5,10 +5,8 @@ import {
   traduzirParaShakespeare,
   traduzirParaMinion,
   traduzirParaElfico
-} from '../api/funTranslateAPI';
-import Button from 'react-bootstrap/Button';
-import Toast from 'react-bootstrap/Toast';
-import Image from 'react-bootstrap/Image';
+} from '../api/funTranslateAPI.js';
+import { Button, Card, Form, Toast, Image } from 'react-bootstrap';
 
 const Lista = ({ tipoTraducaoInicial }) => {
   const [textoOriginal, setTextoOriginal] = useState('');

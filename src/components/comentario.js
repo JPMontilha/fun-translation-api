@@ -1,6 +1,5 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'; // Importe o componente Button
+import { Button, Form } from 'react-bootstrap';
 
 function TextControlsExample() {
   const handleSubmit = (event) => {

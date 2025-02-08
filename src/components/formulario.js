@@ -1,8 +1,5 @@
 import React, { useState } from 'react';
-import Nav from 'react-bootstrap/Nav';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button'; // Importe o componente Button
+import { Button, Offcanvas, Form, Nav } from 'react-bootstrap';
 import { Person, PersonPlus, BoxArrowRight } from 'react-bootstrap-icons';
 
 // Componente Offcanvas reutilizável

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './App.css';
-import Lista from './components/lista';
-import CardExample from './components/cards';
-import Sidebar from './components/sidebar';
-import { TextControlsExample } from './components/comentario';
+import Lista from './components/lista.js';
+import CardExample from './components/cards.js';
+import Sidebar from './components/sidebar.js';
+import { TextControlsExample } from './components/comentario.js';
 import { CardGroup, Row, Col, CloseButton } from 'react-bootstrap';
-import CommentSystem from './components/listaComentario'; // Importação correta
+import CommentSystem from './components/listaComentario.js'; // Importação correta
 
 function App() {
   const [showCards, setShowCards] = useState(true);

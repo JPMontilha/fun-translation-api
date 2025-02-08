@@ -1,6 +1,5 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { Button, Card } from 'react-bootstrap';
 
 function CardExample({ src, title, text, option, onSelect }) {
   return (
