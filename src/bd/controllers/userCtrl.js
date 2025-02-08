@@ -1,24 +1,25 @@
-import User from '../models/userSchema';
+import User from '../models/userSchema.js';
 import bcrypt from 'bcryptjs';
 
 export const createUser = async (req, res) => {
   try {
     const { user, email, password } = req.body;
-    
-    // Check if user already exists
+
+    // Verifica se o usuário já existe
     const existingUser = await User.findOne({ $or: [{ email }, { user }] });
     if (existingUser) {
       return res.status(400).json({ message: 'Usuário ou email já existe' });
     }
 
-    // Hash password
+    // Hash da senha
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
+    // Cria um novo usuário
     const newUser = new User({
       user,
       email,
-      password: hashedPassword
+      password: hashedPassword,
     });
 
     await newUser.save();
@@ -52,18 +53,18 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-    
+
     const updateData = {};
     if (email) updateData.email = email;
-    
+
     if (password) {
       const salt = await bcrypt.genSalt(10);
       updateData.password = await bcrypt.hash(password, salt);
     }
 
     const updatedUser = await User.findByIdAndUpdate(
-      req.params.id, 
-      updateData, 
+      req.params.id,
+      updateData,
       { new: true, select: '-password' }
     );
 
@@ -80,7 +81,7 @@ export const updateUser = async (req, res) => {
 export const deleteUser = async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params.id);
-    
+
     if (!deletedUser) {
       return res.status(404).json({ message: 'Usuário não encontrado' });
     }
