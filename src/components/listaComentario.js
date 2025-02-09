@@ -1,13 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react'; // Adicionar useEffect aqui
 import { Form, Button, Pagination, Accordion } from 'react-bootstrap';
 import { X } from 'react-bootstrap-icons';
+import axios from 'axios'; // Adicionar axios
 import { TextControlsExample } from './comentario.js'; // Importe o componente
 
 function CommentSystem() {
-  const [comments, setComments] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [comments, setComments] = useState([]); // Lista de comentários
+  const [searchTerm, setSearchTerm] = useState(''); // Termo de busca
   const [currentPage, setCurrentPage] = useState(1);
   const commentsPerPage = 10;
+
+  // Função para buscar comentários do banco de dados
+  const fetchComments = async () => {
+    try {
+      const response = await axios.get('http://localhost:3000/comment/comments'); // Requisição GET para pegar os comentários
+      setComments(response.data); // Atualiza o estado com os dados recebidos
+    } catch (error) {
+      console.error('Erro ao buscar comentários', error);
+      alert('Erro ao buscar comentários' + (error.response?.data?.message || error.message));
+    }
+  };
+
+  // Chamada para buscar os comentários assim que o componente for montado
+  useEffect(() => {
+    fetchComments();
+  }, []); // O array vazio [] faz a chamada apenas na montagem inicial
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -19,7 +36,7 @@ function CommentSystem() {
   };
 
   const filteredComments = comments.filter((comment) =>
-    comment.titulo.toLowerCase().startsWith(searchTerm.toLowerCase()) // Pesquisa exata pelo início
+    comment.title.toLowerCase().startsWith(searchTerm.toLowerCase()) // Pesquisa exata pelo início
   );
 
   const indexOfLastComment = currentPage * commentsPerPage;
@@ -67,9 +84,9 @@ function CommentSystem() {
               >
                 <X size={14} color="black" />
               </Button>
-              {comment.titulo}
+              {comment.title}
             </Accordion.Header>
-            <Accordion.Body>{comment.comentario}</Accordion.Body>
+            <Accordion.Body>{comment.description}</Accordion.Body>
           </Accordion.Item>
         ))}
       </Accordion>
