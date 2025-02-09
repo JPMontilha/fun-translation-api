@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Pagination, Accordion } from 'react-bootstrap';
 import { X } from 'react-bootstrap-icons';
+import { TextControlsExample } from './comentario.js'; // Importe o componente
 
 function CommentSystem() {
   const [comments, setComments] = useState([]);
@@ -88,21 +89,8 @@ function CommentSystem() {
         </Pagination>
       )}
 
-      {/* Título "Pedidos e Opiniões" */}
-      <h2 className="text-white mb-4">Pedidos e Opiniões</h2>
+      <TextControlsExample />
 
-      {/* Formulário de comentários */}
-      <Form onSubmit={handleSubmit}>
-        <Form.Group className="mb-3" controlId="opnionForm.Titulo">
-          <Form.Control as="textarea" rows={1} placeholder="Título" name="titulo" required />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="opnionForm.Comentario">
-          <Form.Control as="textarea" rows={3} placeholder="Descrição" name="comentario" required />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Enviar
-        </Button>
-      </Form>
     </div>
   );
 }

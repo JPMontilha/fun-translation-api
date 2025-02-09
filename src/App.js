@@ -3,6 +3,7 @@ import './App.css';
 import Lista from './components/lista.js';
 import CardExample from './components/cards.js';
 import Sidebar from './components/sidebar.js';
+import { TextControlsExample } from './components/comentario.js';
 import { CardGroup, Row, Col, CloseButton } from 'react-bootstrap';
 import CommentSystem from './components/listaComentario.js'; // Importação correta
 
@@ -93,6 +94,8 @@ function App() {
               </Row>
             </CardGroup>
 
+            {/* Renderiza o TextControlsExample apenas na página inicial */}
+            <TextControlsExample />
           </>
         ) : showComments ? (
           <CommentSystem /> // Renderiza a tela de comentários

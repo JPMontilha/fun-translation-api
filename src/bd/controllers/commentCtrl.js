@@ -2,10 +2,12 @@ import Comment from '../models/commentSchema.js';
 
 export const createComment = async (req, res) => {
   try {
-    const { user, title, description } = req.body;
+    console.log(req.body);
+    
+    const { title, description } = req.body;
 
     const newComment = new Comment({
-      user,
+      user: req.user.id, // Usa o ID do usuário decodificado do token
       title,
       description,
     });
