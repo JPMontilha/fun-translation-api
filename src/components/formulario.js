@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { Button, Offcanvas, Form, Nav } from 'react-bootstrap';
 import { Person, PersonPlus, BoxArrowRight } from 'react-bootstrap-icons';
 
@@ -6,29 +7,40 @@ import { Person, PersonPlus, BoxArrowRight } from 'react-bootstrap-icons';
 function AuthOffcanvas({ show, onHide, title, onSubmit, buttonText }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit({ email, password });
+    onSubmit({ user, email, password });
     onHide();
   };
 
   return (
-    <Offcanvas show={show} onHide={onHide} placement="bottom" className="custom-offcanvas">
-      <Offcanvas.Header closeButton className="custom-header">
+    <Offcanvas show={show} onHide={onHide} placement="bottom">
+      <Offcanvas.Header closeButton>
         <Offcanvas.Title>{title}</Offcanvas.Title>
       </Offcanvas.Header>
-      <Offcanvas.Body className="custom-body">
-        <Form onSubmit={handleSubmit} className="auth-form">
+      <Offcanvas.Body>
+        <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3" controlId="formBasicUsuario">
+            <Form.Label>Usuario</Form.Label>
+            <Form.Control
+              type="usuario"
+              placeholder="Digite seu usuario"
+              value={user}
+              onChange={(e) => setUser(e.target.value)}
+              required
+            />
+          </Form.Group>
+          
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
               type="email"
-              placeholder="name@example.com"
+              placeholder="Digite seu email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="custom-input"
             />
           </Form.Group>
 
@@ -36,15 +48,14 @@ function AuthOffcanvas({ show, onHide, title, onSubmit, buttonText }) {
             <Form.Label>Senha</Form.Label>
             <Form.Control
               type="password"
+              placeholder="Digite sua senha"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="custom-input"
             />
           </Form.Group>
 
-          {/* Substitua Nav.Link por Button */}
-          <Button variant="primary" type="submit" className="custom-button">
+          <Button variant="primary" type="submit">
             {buttonText}
           </Button>
         </Form>
@@ -53,55 +64,68 @@ function AuthOffcanvas({ show, onHide, title, onSubmit, buttonText }) {
   );
 }
 
+// Componente principal de Autenticação
 function AuthButtons() {
   const [showLogin, setShowLogin] = useState(false);
   const [showCadastro, setShowCadastro] = useState(false);
-  const [logado, setLogado] = useState(false); // Estado para controlar se o usuário está logado
+  const [logado, setLogado] = useState(false);
+  const [token, setToken] = useState(null);
 
-  const handleLoginSubmit = (data) => {
-    console.log('Dados do Login:', data);
-    alert('Login realizado com sucesso!');
-    setLogado(true); // Define o estado como logado
+  useEffect(() => {
+    const savedToken = localStorage.getItem('authToken');
+    if (savedToken) {
+      setToken(savedToken);
+      setLogado(true);
+    }
+  }, []);
+
+  // Função para fazer login
+  const handleLoginSubmit = async (data) => {
+    try {
+      const response = await axios.post('http://localhost:3000/auth/login', data);
+      const receivedToken = response.data.token;
+      setToken(receivedToken);
+      setLogado(true);
+      localStorage.setItem('authToken', receivedToken);
+      alert('Login realizado com sucesso!');
+    } catch (error) {
+      alert(error.response?.data?.message || 'Erro ao fazer login.');
+    }
   };
 
-  const handleCadastroSubmit = (data) => {
-    console.log('Dados do Cadastro:', data);
-    alert('Cadastro realizado com sucesso!');
+  // Função para cadastrar usuário
+  const handleCadastroSubmit = async (data) => {
+    try {
+      await axios.post('http://localhost:3000/auth/register', data);
+      alert('Cadastro realizado com sucesso!');
+      setShowCadastro(false);
+    } catch (error) {
+      alert(error.response?.data?.message || 'Erro ao cadastrar.');
+    }
   };
 
+  // Função para fazer logout
   const handleLogout = () => {
-    setLogado(false); // Define o estado como não logado
+    localStorage.removeItem('authToken');
+    setToken(null);
+    setLogado(false);
     alert('Você saiu da sua conta.');
   };
 
   return (
-    <div className="nav-container">
-      <Nav className="d-flex justify-content-between w-100">
+    <div>
+      <Nav className="d-flex justify-content-between">
         {logado ? (
-          // Se estiver logado, mostra apenas o botão "Sair"
-          <Nav.Link
-            onClick={handleLogout}
-            className="custom-button"
-          >
-            <BoxArrowRight className="me-2" /> {/* Ícone de Sair */}
-            Sair
+          <Nav.Link onClick={handleLogout}>
+            <BoxArrowRight className="me-2" /> Sair
           </Nav.Link>
         ) : (
-          // Se não estiver logado, mostra os botões "Login" e "Cadastro"
           <>
-            <Nav.Link
-              onClick={() => setShowLogin(true)}
-              className="custom-button"
-            >
-              <Person className="me-2" /> {/* Ícone de Login */}
-              Login
+            <Nav.Link onClick={() => setShowLogin(true)}>
+              <Person className="me-2" /> Login
             </Nav.Link>
-            <Nav.Link
-              onClick={() => setShowCadastro(true)}
-              className="custom-button"
-            >
-              <PersonPlus className="me-2" /> {/* Ícone de Cadastro */}
-              Cadastro
+            <Nav.Link onClick={() => setShowCadastro(true)}>
+              <PersonPlus className="me-2" /> Cadastro
             </Nav.Link>
           </>
         )}
