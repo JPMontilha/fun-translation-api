@@ -40,45 +40,45 @@ export const getCommentById = async (req, res) => {
   }
 };
 
-export const updateComment = async (req, res) => {
-  try {
-    const { title, description } = req.body;
+// export const updateComment = async (req, res) => {
+//   try {
+//     const { title, description } = req.body;
 
-    const updatedComment = await Comment.findByIdAndUpdate(
-      req.params.id,
-      { title, description },
-      { new: true }
-    );
+//     const updatedComment = await Comment.findByIdAndUpdate(
+//       req.params.id,
+//       { title, description },
+//       { new: true }
+//     );
 
-    if (!updatedComment) {
-      return res.status(404).json({ message: 'Comentário não encontrado' });
-    }
+//     if (!updatedComment) {
+//       return res.status(404).json({ message: 'Comentário não encontrado' });
+//     }
 
-    res.status(200).json(updatedComment);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+//     res.status(200).json(updatedComment);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
-export const deleteComment = async (req, res) => {
-  try {
-    const deletedComment = await Comment.findByIdAndDelete(req.params.id);
+// export const deleteComment = async (req, res) => {
+//   try {
+//     const deletedComment = await Comment.findByIdAndDelete(req.params.id);
 
-    if (!deletedComment) {
-      return res.status(404).json({ message: 'Comentário não encontrado' });
-    }
+//     if (!deletedComment) {
+//       return res.status(404).json({ message: 'Comentário não encontrado' });
+//     }
 
-    res.status(200).json({ message: 'Comentário deletado com sucesso' });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+//     res.status(200).json({ message: 'Comentário deletado com sucesso' });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };
 
-export const getCommentsByUser = async (req, res) => {
-  try {
-    const comments = await Comment.find({ user: req.params.userId }).populate('user', 'user email');
-    res.status(200).json(comments);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// export const getCommentsByUser = async (req, res) => {
+//   try {
+//     const comments = await Comment.find({ user: req.params.userId }).populate('user', 'user email');
+//     res.status(200).json(comments);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// };

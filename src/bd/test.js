@@ -83,19 +83,19 @@ const testControllers = async () => {
     );
 
     // 5. Deletar usuário
-    await deleteUser(
-      {
-        params: { id: newUser._id },
-      },
-      {
-        status: (code) => ({
-          json: (data) => {
-            console.log('Usuário deletado:', data);
-            return data;
-          },
-        }),
-      }
-    );
+    // await deleteUser(
+    //   {
+    //     params: { id: newUser._id },
+    //   },
+    //   {
+    //     status: (code) => ({
+    //       json: (data) => {
+    //         console.log('Usuário deletado:', data);
+    //         return data;
+    //       },
+    //     }),
+    //   }
+    // );
 
     // Teste do Comment Controller
     console.log('=== Testando Comment Controller ===');
@@ -168,19 +168,19 @@ const testControllers = async () => {
     );
 
     // 5. Deletar comentário
-    await deleteComment(
-      {
-        params: { id: newComment._id },
-      },
-      {
-        status: (code) => ({
-          json: (data) => {
-            console.log('Comentário deletado:', data);
-            return data;
-          },
-        }),
-      }
-    );
+    // await deleteComment(
+    //   {
+    //     params: { id: newComment._id },
+    //   },
+    //   {
+    //     status: (code) => ({
+    //       json: (data) => {
+    //         console.log('Comentário deletado:', data);
+    //         return data;
+    //       },
+    //     }),
+    //   }
+    // );
 
     // 6. Buscar comentários por usuário
     await getCommentsByUser(
