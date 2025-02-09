@@ -1,15 +1,26 @@
+import xss from 'xss';
+import validator from 'validator';
 import Comment from '../models/commentSchema.js';
 
 export const createComment = async (req, res) => {
   try {
-    console.log(req.body);
-    
     const { title, description } = req.body;
+
+    const sanitizedTitle = xss(title);
+    const sanitizedDescription = xss(description);
+
+    // Validação básica para garantir que os dados não sejam inválidos
+    if (!validator.isLength(sanitizedTitle, { min: 3, max: 20 })) {
+      return res.status(400).json({ message: 'O título deve ter entre 3 e 20 caracteres.' });
+    }
+    if (!validator.isLength(sanitizedDescription, { min: 10 })) {
+      return res.status(400).json({ message: 'A descrição deve ter pelo menos 10 caracteres.' });
+    }
 
     const newComment = new Comment({
       user: req.user.id, // Usa o ID do usuário decodificado do token
-      title,
-      description,
+      title: sanitizedTitle,
+      description: sanitizedDescription,
     });
 
     await newComment.save();

@@ -32,7 +32,7 @@ function AuthOffcanvas({ show, onHide, title, onSubmit, buttonText }) {
               required
             />
           </Form.Group>
-          
+
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
             <Form.Control
@@ -81,17 +81,23 @@ function AuthButtons() {
 
   // Função para fazer login
   const handleLoginSubmit = async (data) => {
-    try {
-      const response = await axios.post('http://localhost:3000/auth/login', data);
-      const receivedToken = response.data.token;
-      setToken(receivedToken);
-      setLogado(true);
-      localStorage.setItem('authToken', receivedToken);
-      alert('Login realizado com sucesso!');
-    } catch (error) {
+  try {
+    const response = await axios.post('http://localhost:3000/auth/login', data);
+    const receivedToken = response.data.token;
+    setToken(receivedToken);
+    setLogado(true);
+    localStorage.setItem('authToken', receivedToken);
+    alert('Login realizado com sucesso!');
+    window.location.reload();
+  } catch (error) {
+    // Verifica se o erro é relacionado ao rate limit (código 429)
+    if (error.response?.status === 429) {
+      alert('Muitas tentativas de login. Tente novamente depois de alguns minutos.');
+    } else {
       alert(error.response?.data?.message || 'Erro ao fazer login.');
     }
-  };
+  }
+};
 
   // Função para cadastrar usuário
   const handleCadastroSubmit = async (data) => {
@@ -110,6 +116,7 @@ function AuthButtons() {
     setToken(null);
     setLogado(false);
     alert('Você saiu da sua conta.');
+    window.location.reload();
   };
 
   return (

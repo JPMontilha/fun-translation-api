@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Lista from './components/lista.js';
 import CardExample from './components/cards.js';
@@ -12,6 +12,17 @@ function App() {
   const [tipoTraducao, setTipoTraducao] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showComments, setShowComments] = useState(false); // Novo estado para controlar a tela de comentários
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Verificar se o usuário está logado (token presente no localStorage)
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []); // O useEffect é executado apenas uma vez quando o componente é montado
 
   const handleCardSelect = (option) => {
     setTipoTraducao(option);
@@ -74,7 +85,7 @@ function App() {
           <>
             <CardGroup>
               <Row className="justify-content-center">
-                {[
+                {[ 
                   { src: 'https://media.tenor.com/N1f-WnXPK8oAAAAM/yoda-yoda-slap.gif', title: 'Yoda', text: 'Traduza para o estilo Yoda.', option: 'yoda' },
                   { src: 'https://i.ytimg.com/vi/u0AvQt7wuFA/maxresdefault.jpg', title: 'Shakespeare', text: 'Traduza para o estilo Shakespeare.', option: 'shakespeare' },
                   { src: 'https://assetsio.gnwcdn.com/1_Lfp9i4K.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp', title: 'Pirata', text: 'Traduza para o estilo Pirata.', option: 'pirata' },
@@ -94,8 +105,8 @@ function App() {
               </Row>
             </CardGroup>
 
-            {/* Renderiza o TextControlsExample apenas na página inicial */}
-            <TextControlsExample />
+            {/* Renderiza o TextControlsExample apenas se o usuário estiver logado */}
+            {isLoggedIn && <TextControlsExample />}
           </>
         ) : showComments ? (
           <CommentSystem /> // Renderiza a tela de comentários

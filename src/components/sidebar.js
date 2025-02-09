@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Nav } from 'react-bootstrap';
 import { List, House, X, Chat } from 'react-bootstrap-icons'; // Adicione o ícone de chat
 import { AuthButtons } from './formulario.js';
@@ -11,6 +11,19 @@ const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
     { id: 'minion', name: 'Minion' },
     { id: 'elfico', name: 'Élfico' }
   ];
+
+  // Verifica se o usuário está logado
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Verifique se o token de autenticação existe no localStorage
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   return (
     <>
@@ -50,14 +63,16 @@ const Sidebar = ({ isOpen, toggleSidebar, onNavigate, currentTranslation }) => {
             </Nav.Link>
           ))}
 
-          {/* Botão de Comentários */}
-          <Nav.Link
-            className="sidebar-link d-flex align-items-center"
-            onClick={() => onNavigate('comments')}
-          >
-            <Chat size={20} className="me-2" />
-            Comentários
-          </Nav.Link>
+          {/* Botão de Comentários só aparece se o usuário estiver logado */}
+          {isLoggedIn && (
+            <Nav.Link
+              className="sidebar-link d-flex align-items-center"
+              onClick={() => onNavigate('comments')}
+            >
+              <Chat size={20} className="me-2" />
+              Comentários
+            </Nav.Link>
+          )}
         </Nav>
       </div>
     </>

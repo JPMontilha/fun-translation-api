@@ -24,9 +24,9 @@ function TextControlsExample() {
 
       // Enviar os dados para a API, com o ID do usuário incluído
       const data = {
-        title: titulo,        // Campo 'title' para o título do comentário
-        description: comentario, // Campo 'description' para a descrição do comentário
-        user: userId,         // Adicionando o ID do usuário ao corpo da requisição
+        title: titulo,
+        description: comentario,
+        user: userId,
       };
 
       // Enviar os dados para a API
@@ -37,6 +37,7 @@ function TextControlsExample() {
       });
 
       alert('Comentário enviado com sucesso!');
+      window.location.reload();
       setTitulo(''); // Limpar os campos após o envio
       setComentario('');
     } catch (error) {
